@@ -1,0 +1,31 @@
+<launch>
+  <group>
+    <push-ros-namespace namespace="/localisation"/>
+    <!-- Front -->
+    <node pkg="robot_localization" exec="navsat_transform_node" name="navsat_transform">
+      <param from="$(find-pkg-share av_kalman_filter)/config/navsat_param.yaml"/>
+      <param name="debug" value="true"/>
+      <param name="use_sim_time" value="true"/>
+
+      <!-- Input -->
+      <remap from="gps/fix" to="/sensor/gps/nav_sat_fix"/>
+      <remap from="odometry/filtered" to="odometry/filtered"/>
+      <remap from="imu" to="/sensor/imu/rear/data"/>
+      <!-- Output -->
+      <remap from="gps/filtered" to="gps/filtered"/>
+      <!-- sensor_msgs/NavSatFix-->
+      <remap from="odometry/gps" to="odometry/gps"/>
+      <!-- nav_msgs/Odometry -->
+    </node>
+
+    <node pkg="robot_localization" exec="ekf_node" name="ekf_node">
+      <param from="$(find-pkg-share av_kalman_filter)/config/ekf_param.yaml"/>
+      <param name="debug" value="false"/>
+      <param name="use_sim_time" value="true"/>
+    </node>
+
+    <node pkg="tf2_ros" exec="static_transform_publisher" name="map_to_odom_pub" args="0 0 0 0 0 0 odom base_footprint">
+      <param name="use_sim_time" value="false"/>
+    </node>
+  </group>
+</launch>

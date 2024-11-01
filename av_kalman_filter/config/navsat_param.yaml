@@ -1,0 +1,14 @@
+/**:
+  ros__parameters:
+    frequency: 40.0
+    delay: 3.0
+    magnetic_declination_radians: 0.0
+    yaw_offset: 0.0
+    zero_altitude: false
+    publish_filtered_gps: true
+    broadcast_cartesian_transform: true
+    use_odometry_yaw: false
+    wait_for_datum: false
+    datum: [55.945531550528564, -3.1876673177851713, 0.0] # Only if wait_for_datum = false
+    broadcast_utm_transform_as_parent_frame: false
+    transform_timeout: 0.0

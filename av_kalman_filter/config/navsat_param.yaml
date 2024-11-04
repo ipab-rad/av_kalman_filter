@@ -1,10 +1,10 @@
 /**:
   ros__parameters:
     frequency: 40.0
-    delay: 3.0
+    delay: 0.0
     magnetic_declination_radians: 0.0
     yaw_offset: 0.0
-    zero_altitude: false
+    zero_altitude: true
     publish_filtered_gps: true
     broadcast_cartesian_transform: true
     use_odometry_yaw: false

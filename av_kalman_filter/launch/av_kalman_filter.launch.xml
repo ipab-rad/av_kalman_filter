@@ -1,5 +1,5 @@
 <launch>
-  <arg name="rviz_config" default="$(find-pkg-share av_kalman_filter)/rviz/ekf.rviz"/>
+  <arg name="rviz_config" default="$(find-pkg-share av_kalman_filter)/rviz/global_ekf.rviz"/>
   <group>
     <push-ros-namespace namespace="/localisation"/>
 
@@ -10,6 +10,31 @@
       <remap from="twist_in" to="/vehicle/twist"/>
       <remap from="twist_out" to="/vehicle/twist_with_covariance"/>
     </node>
+
+    <node pkg="robot_localization" exec="navsat_transform_node" name="navsat_transform">
+      <param from="$(find-pkg-share av_kalman_filter)/config/navsat_param.yaml"/>
+      <param name="debug" value="true"/>
+      <param name="use_sim_time" value="true"/>
+
+      <!-- Input -->
+      <remap from="gps/fix" to="/sensor/gps/nav_sat_fix"/>
+      <remap from="odometry/filtered" to="ekf_global/odometry"/>
+      <remap from="imu" to="/sensor/imu/rear/data"/>
+      <!-- Output -->
+      <!-- sensor_msgs/NavSatFix-->
+      <remap from="gps/filtered" to="gps/filtered"/>
+      
+      <!-- nav_msgs/Odometry -->
+      <remap from="odometry/gps" to="odometry/gps"/>
+    </node>
+
+    <node pkg="robot_localization" exec="ekf_node" name="ekf_global">
+      <param from="$(find-pkg-share av_kalman_filter)/config/global_ekf_param.yaml"/>
+      <param name="debug" value="false"/>
+      <param name="use_sim_time" value="true"/>
+      <remap from="odometry/filtered" to="ekf_global/odometry"/>
+    </node>
+
 
     <node pkg="robot_localization" exec="ekf_node" name="ekf_local">
       <param from="$(find-pkg-share av_kalman_filter)/config/local_ekf_param.yaml"/>

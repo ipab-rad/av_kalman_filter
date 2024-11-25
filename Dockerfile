@@ -10,6 +10,10 @@ RUN apt-get update \
         ros-"$ROS_DISTRO"-rmw-cyclonedds-cpp \
         # Robot localiszation
         ros-"$ROS_DISTRO"-robot-localization \
+        ros-"$ROS_DISTRO"-imu-tools \
+        ros-"$ROS_DISTRO"-image-transport \
+        ros-"$ROS_DISTRO"-image-transport-plugins \
+        ros-"$ROS_DISTRO"-rviz2 \
     && rm -rf /var/lib/apt/lists/*
 
 # Setup ROS workspace folder

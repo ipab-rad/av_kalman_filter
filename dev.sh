@@ -58,6 +58,14 @@ if [ -n "$CYCLONE_VOL" ]; then
     fi
 fi
 
+# headless = "false"
+
+# MOUNT_X=""
+# if [ "$headless" = "false" ]; then
+MOUNT_X="-e DISPLAY=$DISPLAY -v /tmp/.X11-unix/:/tmp/.X11-unix"
+xhost + >/dev/null
+# fi
+
 # Build docker image up to dev stage
 DOCKER_BUILDKIT=1 docker build \
     -t av_kalman_filter:latest-dev \
@@ -65,13 +73,12 @@ DOCKER_BUILDKIT=1 docker build \
 
 # Run docker image with local code volumes for development
 docker run -it --rm --net host --privileged \
+     ${MOUNT_X} \
+    -e XAUTHORITY="${XAUTHORITY}" \
+    -e XDG_RUNTIME_DIR="$XDG_RUNTIME_DIR" \
     -v /dev:/dev \
     -v /tmp:/tmp \
     -v /etc/localtime:/etc/localtime:ro \
     -v ./av_kalman_filter:/opt/ros_ws/src/av_kalman_filter \
     $CYCLONE_VOL \
     av_kalman_filter:latest-dev
-
-
-
-# ros2 pkg create --build-type ament_cmake av_kalman_filter --dependencies robot_localization sensor_msgs

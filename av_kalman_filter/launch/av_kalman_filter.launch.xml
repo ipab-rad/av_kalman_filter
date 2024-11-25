@@ -5,7 +5,7 @@
 
     <node pkg="av_kalman_filter" exec="twist_msg_converter" name="vehicle_twist_converter">
       <param name="linear_vel_std" value="0.1"/>
-      <param name="angluar_vel_std" value="0.01"/>
+      <param name="angluar_vel_std" value="0.15"/>
       <param name="use_sim_time" value="true"/>
       <remap from="twist_in" to="/vehicle/twist"/>
       <remap from="twist_out" to="/vehicle/twist_with_covariance"/>

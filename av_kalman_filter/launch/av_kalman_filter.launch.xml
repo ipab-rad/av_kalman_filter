@@ -23,7 +23,6 @@
       <!-- Output -->
       <!-- sensor_msgs/NavSatFix-->
       <remap from="gps/filtered" to="gps/filtered"/>
-      
       <!-- nav_msgs/Odometry -->
       <remap from="odometry/gps" to="odometry/gps"/>
     </node>
@@ -34,7 +33,6 @@
       <param name="use_sim_time" value="true"/>
       <remap from="odometry/filtered" to="ekf_global/odometry"/>
     </node>
-
 
     <node pkg="robot_localization" exec="ekf_node" name="ekf_local">
       <param from="$(find-pkg-share av_kalman_filter)/config/local_ekf_param.yaml"/>

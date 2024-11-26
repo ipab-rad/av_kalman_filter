@@ -2,9 +2,8 @@
   ros__parameters:
     frequency: 20.0
     delay: 0.0
-    magnetic_declination_radians: 0.0
-    # yaw_offset: 1.57
-    yaw_offset: 1.9
+    magnetic_declination_radians: -0.01076 # Edinburgh (https://www.magnetic-declination.com)
+    yaw_offset: 0.418879  # 24 deg
     zero_altitude: true
     publish_filtered_gps: true
     broadcast_cartesian_transform: true

@@ -73,7 +73,7 @@ DOCKER_BUILDKIT=1 docker build \
 
 # Run docker image with local code volumes for development
 docker run -it --rm --net host --privileged \
-     ${MOUNT_X} \
+    ${MOUNT_X} \
     -e XAUTHORITY="${XAUTHORITY}" \
     -e XDG_RUNTIME_DIR="$XDG_RUNTIME_DIR" \
     -v /dev:/dev \

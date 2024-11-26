@@ -17,26 +17,20 @@ include_directories(include)
 
 add_library(twist_msg_converter_component SHARED src/twist_msg_converter.cpp)
 
-ament_target_dependencies(twist_msg_converter_component
-  rclcpp
-  rclcpp_components
-  geometry_msgs
-)
+ament_target_dependencies(twist_msg_converter_component rclcpp
+                          rclcpp_components geometry_msgs)
 
 rclcpp_components_register_node(
-  twist_msg_converter_component
-    PLUGIN "util::TwistMsgConverter"
-    EXECUTABLE twist_msg_converter
-)
-
+  twist_msg_converter_component PLUGIN "util::TwistMsgConverter" EXECUTABLE
+  twist_msg_converter)
 
 ament_export_targets(export_twist_msg_converter_component)
-install(TARGETS twist_msg_converter_component
-        EXPORT export_twist_msg_converter_component
-        ARCHIVE DESTINATION lib
-        LIBRARY DESTINATION lib
-        RUNTIME DESTINATION bin
-)
+install(
+  TARGETS twist_msg_converter_component
+  EXPORT export_twist_msg_converter_component
+  ARCHIVE DESTINATION lib
+  LIBRARY DESTINATION lib
+  RUNTIME DESTINATION bin)
 
 install(DIRECTORY config DESTINATION share/${PROJECT_NAME})
 
